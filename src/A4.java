@@ -19,7 +19,7 @@ import java.util.Collection;
  */
 
 public class A4 {
-
+	System.out.prntln("asd");
 	public String[][] avengerRoster = { { "captainamerica", "rogers" }, { "ironman", "stark" },
 			{ "blackwidow", "romanoff" }, { "hulk", "banner" }, { "blackpanther", "tchalla" }, { "thor", "odinson" },
 			{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
