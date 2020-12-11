@@ -34,6 +34,7 @@ public class A4 {
 	private Scanner sc = new Scanner(System.in);
 	private HashMap<String, Avenger> hashMap = new HashMap<String,Avenger>();//creates a hashmap that takes string key(the alias) and values of the avenger it self
 	private TreeMap<String,Avenger> alphabeticalTree = new TreeMap<String, Avenger>();
+	private TreeMap<Avenger, String> mentionTree = new TreeMap<Avenger, String>(new AvengerComparatorMentionOrder());
 
 	/* TODO:
 	 * Create the necessary hashMap and treeMap objects to keep track of the Avenger objects 
@@ -75,6 +76,7 @@ public class A4 {
 		Iterator<Entry<String, Avenger>> iteratSet = hashSet.iterator();
 		while(iteratSet.hasNext()) {
 			Entry<String,Avenger> avengerEntry = iteratSet.next(); //create a temporary entry , this will be used to create the treeMap
+			mentionTree.put(avengerEntry.getValue(), avengerEntry.getKey());
 			alphabeticalTree.put(avengerEntry.getKey(), avengerEntry.getValue());
 			
 			
@@ -203,6 +205,13 @@ public class A4 {
 			System.out.println(iteratorAlphbetical.next().getValue());
 		}
 	}
+	private void printInOrder() {
+		Set<Entry<Avenger, String>> alphabticalIterator = mentionTree.entrySet();//creates a entry set of the natural ordering
+		Iterator<Entry<Avenger, String>> mentionIterator = alphabticalIterator.iterator();//creates an iterator based off the entry set
+		while(mentionIterator.hasNext()) {//iterates through the iterator
+			System.out.println(mentionIterator.next().getKey());
+		}
+	}
 	/**
 	 * print the results
 	 */
@@ -228,7 +237,7 @@ public class A4 {
 		System.out.println("All avengers in the order they appeared in the input stream:");
 		// Todo: Print the list of avengers in the order they appeared in the input
 		// Make sure you follow the formatting example in the sample output
-		System.out.println();
+		printInOrder();
 
 		System.out.println("Top " + topN + " most popular avengers:");
 		// Todo: Print the most popular avengers, see the instructions for tie breaking
