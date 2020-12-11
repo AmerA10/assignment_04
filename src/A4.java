@@ -36,6 +36,7 @@ public class A4 {
 	private TreeMap<String,Avenger> alphabeticalTree = new TreeMap<String, Avenger>();
 	private TreeMap<Avenger, String> mentionTree = new TreeMap<Avenger, String>(new AvengerComparatorMentionOrder());//tree map comparators naturally compare the keys and not the values so it must be switched
 	private TreeMap<Avenger, String> mostPopularTree = new TreeMap<Avenger, String>(new AvengerComparatorFreqDesc());
+	private TreeMap<Avenger, String> leastPopularTree = new TreeMap<Avenger, String>(new AvengerComparatorFreqAsc());
 
 	/* TODO:
 	 * Create the necessary hashMap and treeMap objects to keep track of the Avenger objects 
@@ -79,6 +80,7 @@ public class A4 {
 			Entry<String,Avenger> avengerEntry = iteratSet.next(); //create a temporary entry , this will be used to create the treeMap
 			mentionTree.put(avengerEntry.getValue(), avengerEntry.getKey());
 			mostPopularTree.put(avengerEntry.getValue(), avengerEntry.getKey());
+			leastPopularTree.put(avengerEntry.getValue(), avengerEntry.getKey());
 			alphabeticalTree.put(avengerEntry.getKey(), avengerEntry.getValue());
 			
 			
@@ -224,6 +226,16 @@ public class A4 {
 			i++;
 		}
 	}
+	private void printLeastNMostPopular(int topN) {
+		int i = 0;
+		Set<Entry<Avenger,String>> leastPopularSet = leastPopularTree.entrySet();
+		Iterator<Entry<Avenger,String>> leastPopularIterator = leastPopularSet.iterator();
+		while(leastPopularIterator.hasNext() && i < topN) {
+			System.out.println(leastPopularIterator.next().getKey());
+			i++;
+		}
+	}
+	
 	/**
 	 * print the results
 	 */
@@ -243,26 +255,31 @@ public class A4 {
 		
 		
 		System.out.println("Total number of words: " + totalWordCount);
-		//System.out.println("Number of Avengers Mentioned: " + ??);
+		System.out.println("Number of Avengers Mentioned: " + hashMap.size());
 		System.out.println();
 
 		System.out.println("All avengers in the order they appeared in the input stream:");
 		// Todo: Print the list of avengers in the order they appeared in the input
 		// Make sure you follow the formatting example in the sample output
 		printInOrder();
-
+		System.out.println();
 		System.out.println("Top " + topN + " most popular avengers:");
 		// Todo: Print the most popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
+		
 		printTopNMostPopular(topN);
-
+		System.out.println();
+		
 		System.out.println("Top " + topN + " least popular avengers:");
 		// Todo: Print the least popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
+		
+		printLeastNMostPopular(topN);
 		System.out.println();
-
+		
 		System.out.println("All mentioned avengers in alphabetical order:");
 		// Todo: Print the list of avengers in alphabetical order
+	
 		printAlphabtical();
 	}
 }
