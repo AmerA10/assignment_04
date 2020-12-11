@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Collection;
-import java.io.*;
+
 
 /**
  * COMP 2503 Winter 2020 Assignment 4
@@ -49,12 +49,12 @@ public class A4 {
 	 * TreeMap constructor. 
 	 */
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args)  {
 		A4 a4 = new A4();
 		a4.run();
 	}
 
-	public void run() throws FileNotFoundException {
+	public void run()  {
 		readInput();
 		createdOrderedTreeMaps();
 		printResults();
@@ -94,7 +94,7 @@ public class A4 {
 	 * alias or last name.
 	 * @throws FileNotFoundException 
 	 */
-	private void readInput() throws FileNotFoundException {
+	private void readInput()  {
 		/*
 		 * In a loop, while the scanner object has not reached end of stream, - read a
 		 * word. - clean up the word - if the word is not empty, add the word count. -
@@ -106,8 +106,6 @@ public class A4 {
 		 * to keep track of the mention order
 		 */
 		
-		File inputFile = new File("input1.txt");
-		sc = new Scanner(inputFile);
 		mentionOrder = 0;
 		String key = "";
 		while(sc.hasNext()) {
@@ -281,5 +279,6 @@ public class A4 {
 		// Todo: Print the list of avengers in alphabetical order
 	
 		printAlphabtical();
+		System.out.println();
 	}
 }
