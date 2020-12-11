@@ -34,7 +34,8 @@ public class A4 {
 	private Scanner sc = new Scanner(System.in);
 	private HashMap<String, Avenger> hashMap = new HashMap<String,Avenger>();//creates a hashmap that takes string key(the alias) and values of the avenger it self
 	private TreeMap<String,Avenger> alphabeticalTree = new TreeMap<String, Avenger>();
-	private TreeMap<Avenger, String> mentionTree = new TreeMap<Avenger, String>(new AvengerComparatorMentionOrder());
+	private TreeMap<Avenger, String> mentionTree = new TreeMap<Avenger, String>(new AvengerComparatorMentionOrder());//tree map comparators naturally compare the keys and not the values so it must be switched
+	private TreeMap<Avenger, String> mostPopularTree = new TreeMap<Avenger, String>(new AvengerComparatorFreqDesc());
 
 	/* TODO:
 	 * Create the necessary hashMap and treeMap objects to keep track of the Avenger objects 
@@ -77,7 +78,9 @@ public class A4 {
 		while(iteratSet.hasNext()) {
 			Entry<String,Avenger> avengerEntry = iteratSet.next(); //create a temporary entry , this will be used to create the treeMap
 			mentionTree.put(avengerEntry.getValue(), avengerEntry.getKey());
+			mostPopularTree.put(avengerEntry.getValue(), avengerEntry.getKey());
 			alphabeticalTree.put(avengerEntry.getKey(), avengerEntry.getValue());
+			
 			
 			
 		}
@@ -199,17 +202,26 @@ public class A4 {
 	}
 	
 	private void printAlphabtical() {
-		Set<Entry<String, Avenger>> alphabticalIterator = alphabeticalTree.entrySet();//creates a entry set of the natural ordering
-		Iterator<Entry<String, Avenger>> iteratorAlphbetical = alphabticalIterator.iterator();//creates an iterator based off the entry set
+		Set<Entry<String, Avenger>> alphabticalSet = alphabeticalTree.entrySet();//creates a entry set of the natural ordering
+		Iterator<Entry<String, Avenger>> iteratorAlphbetical = alphabticalSet.iterator();//creates an iterator based off the entry set
 		while(iteratorAlphbetical.hasNext()) {//iterates through the iterator
 			System.out.println(iteratorAlphbetical.next().getValue());
 		}
 	}
 	private void printInOrder() {
-		Set<Entry<Avenger, String>> alphabticalIterator = mentionTree.entrySet();//creates a entry set of the natural ordering
-		Iterator<Entry<Avenger, String>> mentionIterator = alphabticalIterator.iterator();//creates an iterator based off the entry set
+		Set<Entry<Avenger, String>> mentionSet = mentionTree.entrySet();//creates a entry set of the natural ordering
+		Iterator<Entry<Avenger, String>> mentionIterator = mentionSet.iterator();//creates an iterator based off the entry set
 		while(mentionIterator.hasNext()) {//iterates through the iterator
 			System.out.println(mentionIterator.next().getKey());
+		}
+	}
+	private void printTopNMostPopular(int topN) {
+		int i = 0;
+		Set<Entry<Avenger,String>> mostPopularSet = mostPopularTree.entrySet();
+		Iterator<Entry<Avenger,String>> mostPopularIterator = mostPopularSet.iterator();
+		while(mostPopularIterator.hasNext() && i < topN) {
+			System.out.println(mostPopularIterator.next().getKey());
+			i++;
 		}
 	}
 	/**
@@ -242,7 +254,7 @@ public class A4 {
 		System.out.println("Top " + topN + " most popular avengers:");
 		// Todo: Print the most popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
-		System.out.println();
+		printTopNMostPopular(topN);
 
 		System.out.println("Top " + topN + " least popular avengers:");
 		// Todo: Print the least popular avengers, see the instructions for tie breaking
