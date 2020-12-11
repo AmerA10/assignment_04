@@ -14,7 +14,7 @@ import java.util.Collection;
  * for keeping track of the Avenger Objects, and it must use TreeMaps
  * for storing the data. 
  * 
- * @author Maryam Elahi
+ * @author Amer Alagami
  * @date Fall 2020
  */
 
@@ -82,6 +82,50 @@ public class A4 {
 		 * to keep track of the mention order
 		 */
 
+	}
+	
+	private boolean isAvenger(String word) {
+		for (int i = 0; i < avengerRoster.length; i++) {
+			if ((avengerRoster[i][0].equals(word)) 
+					|| (avengerRoster[i][1].equals(word))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private String cleanWord(String next) {
+		// First, if there is an apostrophe, the substring
+		// before the apostrophe is used and the rest is ignored.
+		// Words are converted to all lowercase.
+		// All other punctuation and numbers are skipped.
+		String ret;
+		int inx = next.indexOf('\'');
+		if (inx != -1) {
+			ret = next.substring(0, inx).toLowerCase().trim().replaceAll("[^a-z]", "");
+		}
+			
+		else {
+			ret = next.toLowerCase().trim().replaceAll("[^a-z]", "");
+		}
+			
+		return ret;
+	}
+	private Avenger createAvengerObject(String word, int mentionOrder) {
+		int inx = -1;
+		for (int i = 0; i < avengerRoster.length; i++) {
+			
+			if (avengerRoster[i][0].equals(word) 
+					|| avengerRoster[i][1].equals(word)) {
+				inx = i;
+				break;
+			}
+		}
+		if (inx != -1) {
+			
+			return new Avenger(avengerRoster[inx][0], avengerRoster[inx][1], mentionOrder);
+		} else
+			return null;
 	}
 
 	/**
