@@ -91,9 +91,7 @@ public class A4 {
 		File inputFile = new File("input1.txt");
 		sc = new Scanner(inputFile);
 		mentionOrder = 0;
-		String[][] key_Value = {{""}, {""}};
 		String key = "";
-		String value = "";
 		while(sc.hasNext()) {
 			String word = cleanWord(sc.next());
 			if(word.length() > 0 ) {
@@ -103,15 +101,11 @@ public class A4 {
 				Avenger newAvenger = createAvengerObject(word, mentionOrder);//create a new avenger regardelss of weather or not its a key or not, the method takes care of it
 				if(isAlias(word)) {//the word is an alias for an avenger, can be used as key
 						key = word;
-						value = getName(word);
-						key_Value[0][0] = word;
-						key_Value[0][1] = value;
+					
 				}
 				else {
 					key = getAlias(word);
-					value = word;
-					key_Value[0][0] = word;
-					key_Value[0][1] = value;
+				
 				}
 				
 				if(hashMap.containsKey(key)) {//if the map already has the key for an avenger we simply increase the frequency
@@ -140,16 +134,6 @@ public class A4 {
 		for (int i = 0; i < avengerRoster.length; i++) {
 			if(word.equals(avengerRoster[i][1])) {//find the name
 				return avengerRoster[i][0]; //return the alias
-			}
-				
-		}
-		return null;
-	}
-	
-	private String getName(String word) {
-		for (int i = 0; i < avengerRoster.length; i++) {
-			if(word.equals(avengerRoster[i][0])) {//find the name
-				return avengerRoster[i][1]; //return the alias
 			}
 				
 		}
