@@ -30,7 +30,7 @@ public class A4 {
 	private int totalWordCount = 0;
 	private int mentionOrder;
 	private Scanner sc = new Scanner(System.in);
-	private HashMap hashMap = new HashMap();
+	private HashMap<String, Avenger> hashMap = new HashMap<String,Avenger>();//creates a hashmap that takes string key(the alias) and values of the avenger it self
 	private TreeMap alphabeticalTree = new TreeMap();
 
 	/* TODO:
@@ -115,7 +115,10 @@ public class A4 {
 				}
 				
 				if(hashMap.containsKey(key)) {//if the map already has the key for an avenger we simply increase the frequency
-					
+					hashMap.get(key).incrementFreq();
+				}
+				if(!hashMap.containsKey(key)) {//if the avenger does not exist then add the avenger to the hashmap
+					hashMap.put(key, newAvenger);
 				}
 				
 			}
