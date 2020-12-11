@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Collection;
+import java.io.*;
 
 /**
  * COMP 2503 Winter 2020 Assignment 4
@@ -26,8 +27,11 @@ public class A4 {
 			{ "wintersoldier", "barnes" } };
 
 	private int topN = 4;
-	private int totalwordcount = 0;
-	private Scanner input = new Scanner(System.in);
+	private int totalWordCount = 0;
+	private int mentionOrder;
+	private Scanner sc = new Scanner(System.in);
+	private HashMap hashMap = new HashMap();
+	private TreeMap alphabeticalTree = new TreeMap();
 
 	/* TODO:
 	 * Create the necessary hashMap and treeMap objects to keep track of the Avenger objects 
@@ -40,17 +44,17 @@ public class A4 {
 	 * TreeMap constructor. 
 	 */
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		A4 a4 = new A4();
 		a4.run();
 	}
 
-	public void run() {
+	public void run() throws FileNotFoundException {
 		readInput();
 		createdOrderedTreeMaps();
 		printResults();
 	}
-	testing stuff
+	
 
 	private void createdOrderedTreeMaps() {
 		/* TODO:
@@ -70,8 +74,9 @@ public class A4 {
 	/**
 	 * read the input stream and keep track how many times avengers are mentioned by
 	 * alias or last name.
+	 * @throws FileNotFoundException 
 	 */
-	private void readInput() {
+	private void readInput() throws FileNotFoundException {
 		/*
 		 * In a loop, while the scanner object has not reached end of stream, - read a
 		 * word. - clean up the word - if the word is not empty, add the word count. -
@@ -82,7 +87,70 @@ public class A4 {
 		 * newly created avenger to the hashMap, remember to set the frequency, and 
 		 * to keep track of the mention order
 		 */
+		
+		File inputFile = new File("input1.txt");
+		sc = new Scanner(inputFile);
+		mentionOrder = 0;
+		String[][] key_Value = {{""}, {""}};
+		String key = "";
+		String value = "";
+		while(sc.hasNext()) {
+			String word = cleanWord(sc.next());
+			if(word.length() > 0 ) {
+				totalWordCount++;
+			}
+			if(isAvenger(word)) {
+				Avenger newAvenger = createAvengerObject(word, mentionOrder);//create a new avenger regardelss of weather or not its a key or not, the method takes care of it
+				if(isAlias(word)) {//the word is an alias for an avenger, can be used as key
+						key = word;
+						value = getName(word);
+						key_Value[0][0] = word;
+						key_Value[0][1] = value;
+				}
+				else {
+					key = getAlias(word);
+					value = word;
+					key_Value[0][0] = word;
+					key_Value[0][1] = value;
+				}
+				
+				if(hashMap.containsKey(key)) {//if the map already has the key for an avenger we simply increase the frequency
+					
+				}
+				
+			}
+		}
 
+	}
+	
+	private boolean isAlias(String word) {
+		for (int i = 0; i < avengerRoster.length; i++) {
+			if(word.equals(avengerRoster[i][0])) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private String getAlias(String word) {
+		for (int i = 0; i < avengerRoster.length; i++) {
+			if(word.equals(avengerRoster[i][1])) {//find the name
+				return avengerRoster[i][0]; //return the alias
+			}
+				
+		}
+		return null;
+	}
+	
+	private String getName(String word) {
+		for (int i = 0; i < avengerRoster.length; i++) {
+			if(word.equals(avengerRoster[i][0])) {//find the name
+				return avengerRoster[i][1]; //return the alias
+			}
+				
+		}
+		return null;
 	}
 	
 	private boolean isAvenger(String word) {
@@ -147,7 +215,7 @@ public class A4 {
 		 */
 		
 		
-		System.out.println("Total number of words: " + totalwordcount);
+		System.out.println("Total number of words: " + totalWordCount);
 		//System.out.println("Number of Avengers Mentioned: " + ??);
 		System.out.println();
 
