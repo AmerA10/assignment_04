@@ -32,9 +32,11 @@ public class A4 {
 	private int totalWordCount = 0;
 	private int mentionOrder;
 	private Scanner sc = new Scanner(System.in);
-	private HashMap<String, Avenger> hashMap = new HashMap<String,Avenger>();//creates a hashmap that takes string key(the alias) and values of the avenger it self
+	//creates a hashmap that takes string key(the alias) and values of the avenger it self
+	private HashMap<String, Avenger> hashMap = new HashMap<String,Avenger>();
 	private TreeMap<String,Avenger> alphabeticalTree = new TreeMap<String, Avenger>();
-	private TreeMap<Avenger, String> mentionTree = new TreeMap<Avenger, String>(new AvengerComparatorMentionOrder());//tree map comparators naturally compare the keys and not the values so it must be switched
+	//tree map comparators naturally compare the keys and not the values so it must be switched
+	private TreeMap<Avenger, String> mentionTree = new TreeMap<Avenger, String>(new AvengerComparatorMentionOrder());
 	private TreeMap<Avenger, String> mostPopularTree = new TreeMap<Avenger, String>(new AvengerComparatorFreqDesc());
 	private TreeMap<Avenger, String> leastPopularTree = new TreeMap<Avenger, String>(new AvengerComparatorFreqAsc());
 
@@ -137,6 +139,11 @@ public class A4 {
 
 	}
 	
+	/**
+	 * checks if the avenger word is an alias or not
+	 * @param word
+	 * @return
+	 */
 	private boolean isAlias(String word) {
 		for (int i = 0; i < avengerRoster.length; i++) {
 			if(word.equals(avengerRoster[i][0])) {
@@ -147,6 +154,11 @@ public class A4 {
 		return false;
 	}
 	
+	/**
+	 * returns the alias of a given avenger word
+	 * @param word
+	 * @return
+	 */
 	private String getAlias(String word) {
 		for (int i = 0; i < avengerRoster.length; i++) {
 			if(word.equals(avengerRoster[i][1])) {//find the name
@@ -157,6 +169,11 @@ public class A4 {
 		return null;
 	}
 	
+	/**
+	 * checks if the word is in the avenger roster
+	 * @param word
+	 * @return
+	 */
 	private boolean isAvenger(String word) {
 		for (int i = 0; i < avengerRoster.length; i++) {
 			if ((avengerRoster[i][0].equals(word)) 
@@ -167,11 +184,16 @@ public class A4 {
 		return false;
 	}
 	
+	/**
+	 *First, if there is an apostrophe, the substring
+	 *Before the apostrophe is used and the rest is ignored.
+	 *Words are converted to all lowercase.
+	 *All other punctuation and numbers are skipped.
+	 * @param next
+	 * @return
+	 */
 	private String cleanWord(String next) {
-		// First, if there is an apostrophe, the substring
-		// before the apostrophe is used and the rest is ignored.
-		// Words are converted to all lowercase.
-		// All other punctuation and numbers are skipped.
+		
 		String ret;
 		int inx = next.indexOf('\'');
 		if (inx != -1) {
@@ -184,6 +206,12 @@ public class A4 {
 			
 		return ret;
 	}
+	/**
+	 * creates and returns an avenger object with a given word, and a mention order
+	 * @param word
+	 * @param mentionOrder
+	 * @return
+	 */
 	private Avenger createAvengerObject(String word, int mentionOrder) {
 		int inx = -1;
 		for (int i = 0; i < avengerRoster.length; i++) {
@@ -201,6 +229,9 @@ public class A4 {
 			return null;
 	}
 	
+	/**
+	 * iterates through and prints the alphabetical tree
+	 */
 	private void printAlphabtical() {
 		Set<Entry<String, Avenger>> alphabticalSet = alphabeticalTree.entrySet();//creates a entry set of the natural ordering
 		Iterator<Entry<String, Avenger>> iteratorAlphbetical = alphabticalSet.iterator();//creates an iterator based off the entry set
@@ -208,6 +239,9 @@ public class A4 {
 			System.out.println(iteratorAlphbetical.next().getValue());
 		}
 	}
+	/**
+	 * iterates through and prints the mention order tree
+	 */
 	private void printInOrder() {
 		Set<Entry<Avenger, String>> mentionSet = mentionTree.entrySet();//creates a entry set of the natural ordering
 		Iterator<Entry<Avenger, String>> mentionIterator = mentionSet.iterator();//creates an iterator based off the entry set
@@ -215,6 +249,10 @@ public class A4 {
 			System.out.println(mentionIterator.next().getKey());
 		}
 	}
+	/**
+	 * takes in a topN and uses it to iterate over the most popular tree topN number of times
+	 * @param topN
+	 */
 	private void printTopNMostPopular(int topN) {
 		int i = 0;
 		Set<Entry<Avenger,String>> mostPopularSet = mostPopularTree.entrySet();
@@ -224,6 +262,10 @@ public class A4 {
 			i++;
 		}
 	}
+	/**
+	 * takes in a topN and uses it to iterate over the least popular tree topN number of times
+	 * @param topN
+	 */
 	private void printLeastNMostPopular(int topN) {
 		int i = 0;
 		Set<Entry<Avenger,String>> leastPopularSet = leastPopularTree.entrySet();
