@@ -113,6 +113,7 @@ public class A4 {
 				}
 				if(!hashMap.containsKey(key)) {//if the avenger does not exist then add the avenger to the hashmap
 					hashMap.put(key, newAvenger);
+					mentionOrder++;
 				}
 				
 			}
