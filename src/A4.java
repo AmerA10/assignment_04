@@ -19,7 +19,7 @@ import java.util.Collection;
  */
 
 public class A4 {
-	System.out.prntln("asd");
+	
 	public String[][] avengerRoster = { { "captainamerica", "rogers" }, { "ironman", "stark" },
 			{ "blackwidow", "romanoff" }, { "hulk", "banner" }, { "blackpanther", "tchalla" }, { "thor", "odinson" },
 			{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
@@ -61,7 +61,7 @@ public class A4 {
 		 * the Iterable interface at the top level, but they have
 		 * methods that return Iterable objects, such as keySet() and entrySet().
 		 * For example, you can create an iterator object over 
-		 * the 'key set' of the HashMap and use the next() method in a loop
+		 * the 'key set' of the HashMap and use the next() method in a loopwg
 		 * to get each word object. 
 		 */		
 	}
